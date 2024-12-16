@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Form for Book</title>
+</head>
+<body>
+<div>
+    <form th:action="@{${book != null} ? '/books/edit/' + ${book?.getId()} : '/books/add'}" th:method="POST">
+        <div>
+            <label for="title">Book title</label>
+            <input type="text"
+                   id="title"
+                   name="title"
+                   th:value="(${book} != null ? ${book?.getTitle()} : '')"
+                   required
+                   placeholder="Book title..."
+            />
+        </div>
+        <div>
+            <label for="isbn">Book isbn</label>
+            <input type="text"
+                   id="isbn"
+                   name="isbn"
+                   th:value="(${book} != null ? ${book?.getIsbn()} : '')"
+                   required
+                   placeholder="Book isbn..."
+            />
+        </div>
+        <div>
+            <label for="genre">Book genre</label>
+            <input type="text"
+                   id="genre"
+                   name="genre"
+                   th:value="(${book} != null ? ${book?.getGenre()} : '')"
+                   required
+                   placeholder="Book genre..."
+            />
+        </div>
+        <div>
+            <label for="year">Book year</label>
+            <input type="text"
+                   id="year"
+                   name="year"
+                   th:value="(${book} != null ? ${book?.getYear()} : '')"
+                   required
+                   placeholder="Book year..."
+            />
+        </div>
+        <div>
+            <label>Book Store</label>
+            <select name="bookStoreId">
+                <option th:if="${book} == null"
+                        th:each="store : ${bookStores}"
+                        th:value="${store.getId()}"
+                        th:text="${store.getName()}"
+                >
+                </option>
+                <option th:if="${book} != null"
+                        th:selected="${book.getBookStore() != null &&
+                            book.getBookStore().getId() == store.getId()}"
+                        th:each="store : ${bookStores}"
+                        th:value="${store.getId()}"
+                        th:text="${store.getName()}"
+                >
+                </option>
+            </select>
+        </div>
+
+        <button type="submit">Submit</button>
+        <a href="/books">Back</a>
+    </form>
+</div>
+</body>
+</html>

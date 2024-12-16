@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Books Homepage - Welcome to My Book Store</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Welcome to My Book Store</h1>
+</header>
+<main>
+    <th:block th:if="${error}">
+        <h2>Book Not Found</h2>
+    </th:block>
+    <th:block>
+        <a href="books/add-form">Add Book</a>
+    </th:block>
+    <h2>Choose book:</h2>
+    <!-- Display radio buttons for each book,
+            the value should be the isbn
+            and the displayed text should be Title: <bookTitle>, Genre:<genre>, Year: <year> -->
+    <form th:action="@{/authors}" method="get">
+        <div th:each="book : ${books}">
+            <input type="radio" name="bookIsbn" th:value="${book.getIsbn()}"/>
+            <label>
+                Title: <span th:text="${book.getTitle()}"></span>
+                Genre: <span th:text="${book.getGenre()}"></span>
+                Year: <span th:text="${book.getYear()}"></span>
+                Book Store: <span th:text="${book.getBookStore().getName()}"></span>
+            </label>
+            <th:block>
+                <a th:href="@{'/books/delete/{id}' (id=${book.getId()})}">
+                    <i>Delete</i>
+                </a>
+            </th:block>
+            <th:block>
+                <a th:href="@{'/books/edit-form/{id}' (id=${book.getId()})}">
+                    <i>Edit</i>
+                </a>
+            </th:block>
+        </div>
+        <input type='submit' value='Submit'>
+    </form>
+</main>
+</body>
+</html>
