@@ -2,14 +2,12 @@ package mk.ecode.events.service.impl;
 
 import mk.ecode.events.model.Event;
 import mk.ecode.events.model.Location;
-import mk.ecode.events.repository.EventRepository;
-import mk.ecode.events.repository.interfaces.EventJpaRepository;
+import mk.ecode.events.repository.jpa.EventJpaRepository;
 import mk.ecode.events.service.EventService;
 import mk.ecode.events.service.LocationService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -19,7 +17,6 @@ public class EventServiceImpl implements EventService {
     private final EventJpaRepository eventJpaRepository;
 
     public EventServiceImpl(LocationService locationService, EventJpaRepository eventJpaRepository) {
-//        this.eventRepository = eventRepository;
         this.locationService = locationService;
         this.eventJpaRepository = eventJpaRepository;
     }
@@ -70,7 +67,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event findById(Long id) {
-        return eventJpaRepository.findById(id).orElseThrow();
+        return eventJpaRepository.findById(id).orElseThrow(() -> new RuntimeException("Event not found"));
     }
 
     @Override
@@ -89,7 +86,6 @@ public class EventServiceImpl implements EventService {
     @Override
     public void delete(Long id) {
         Event event = findById(id);
-
         eventJpaRepository.delete(event);
     }
 

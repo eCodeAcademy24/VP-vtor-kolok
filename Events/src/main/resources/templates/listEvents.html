@@ -28,12 +28,10 @@
     <h1>Welcome to our Event Booking App</h1>
     <div>
         <th:block>
-            <!-- Login button (visible when no user is logged in) -->
             <a th:href="@{/login}" class="btn btn-primary">Login</a>
         </th:block>
         <th:block>
-            <!-- Logout button (visible when a user is logged in) -->
-            <form th:action="@{/logout}" method="post" style="display: inline;">
+            <form th:action="@{/logout}" method="post" style="display: inline">
                 <button type="submit" class="btn btn-danger">Logout</button>
             </form>
         </th:block>
@@ -60,18 +58,21 @@
     <h2>Search by Location:</h2>
     <form th:action="@{/events}" method="get">
         <label for="locationId">Location:</label>
-        <select id="locationId" name="locationId">
-            <option value="">--Select Location--</option>
-            <th:block th:each="location : ${locations}">
-                <option th:value="${location.id}" th:text="${location.name}"></option>
+        <select name="locationId" id="locationId">
+            <option value="">---Select location---</option>
+            <th:block th:each="location: ${locations}">
+                <option th:value="${location.id}"
+                        th:text="${location.name}"
+                ></option>
             </th:block>
-        </select><br/><br/>
+        </select>
 
         <button type="submit">Filter by Location</button>
     </form>
 
     <br/>
-    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+
+    <th:block sec:authorize="hasRole('ADMIN')">
         <a th:href="@{'/add-event'}"
            class="btn btn-sm btn-info edit-product">
             <i>Add an Event</i>
@@ -93,14 +94,14 @@
                 Rating: <span th:text="${event.popularityScore}"></span>
                 Location: <span th:text="${event.getLocation()?.getName()}"></span>
             </label>
-            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+            <th:block sec:authorize="hasRole('ADMIN')">
                 <a th:href="@{'/events/delete/{id}' (id=${event.getId()})}"
                    class="btn btn-sm btn-danger delete-product"
                 >
                     <i>Delete</i>
                 </a>
             </th:block>
-            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+            <th:block sec:authorize="hasRole('ADMIN')">
                 <a th:href="@{'/events/edit-form/{id}' (id=${event.getId()})}"
                    class="btn btn-sm btn-info edit-product">
                     <i>Edit</i>

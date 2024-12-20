@@ -1,6 +1,7 @@
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -16,20 +17,19 @@
     <script src="https://kit.fontawesome.com/e59232f0a1.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
-
 <div class="container" xmlns:th="http://www.thymeleaf.org">
     <form class="form-signin mt-xl-5" method="post" action="/login">
-        <h2 class="form-signin-heading">Sign in</h2>
+        <h2>Sign in</h2>
+
         <p>
-            <label for="username" class="sr-only">Username</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required=""
-                   autofocus="">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required
+                   autofocus>
         </p>
+
         <p>
-            <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password"
-                   required="">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
         </p>
 
         <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
@@ -41,7 +41,5 @@
         <a th:href="@{/events}" class="btn btn-secondary btn-block">Go to Events</a>
     </div>
 </div>
-
-
 </body>
 </html>

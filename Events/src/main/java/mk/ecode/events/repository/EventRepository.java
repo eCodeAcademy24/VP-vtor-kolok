@@ -1,13 +1,12 @@
 package mk.ecode.events.repository;
 
-import jakarta.annotation.PostConstruct;
 import mk.ecode.events.bootstrap.DataHolder;
+
 import mk.ecode.events.model.Event;
 import mk.ecode.events.model.Location;
-import org.springframework.stereotype.Component;
+
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

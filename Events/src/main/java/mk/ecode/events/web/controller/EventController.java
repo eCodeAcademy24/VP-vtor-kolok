@@ -31,15 +31,15 @@ public class EventController {
                                 @RequestParam(required = false) Long locationId,
                                 Model model) {
         List<Location> locations = locationService.findAll();
+        model.addAttribute("locations", locations);
 
         if (error != null) {
             model.addAttribute("error", error);
             model.addAttribute("events", eventService.listAll());
-            model.addAttribute("locations", locations);
             return "listEvents.html";
         }
 
-        model.addAttribute("locations", locations);
+
         if (searchText != null || popularityScore != null) {
             model.addAttribute("events", eventService.filter(searchText, popularityScore));
         } else if (locationId != null) {

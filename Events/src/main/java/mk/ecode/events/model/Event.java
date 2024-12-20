@@ -1,13 +1,14 @@
 package mk.ecode.events.model;
 
 import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
 public class Event {
 
@@ -17,11 +18,11 @@ public class Event {
     private String name;
     private String description;
     private double popularityScore;
+
     @ManyToOne
     private Location location;
 
     public Event(String name, String description, double popularityScore, Location location) {
-        this.id = (long) (Math.random() * 1000);
         this.name = name;
         this.description = description;
         this.popularityScore = popularityScore;

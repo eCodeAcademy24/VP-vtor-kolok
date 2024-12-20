@@ -19,6 +19,4 @@ public class EventsApplication {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
     }
-
-
 }

@@ -1,27 +1,24 @@
 package mk.ecode.events.web.controller;
 
-
 import jakarta.servlet.http.HttpServletRequest;
-
+import lombok.RequiredArgsConstructor;
 import mk.ecode.events.model.User;
 import mk.ecode.events.service.AuthService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-//@RestController
 @Controller
 @RequestMapping("/login")
+@RequiredArgsConstructor
 public class LoginController {
-    private final AuthService authService;
 
-    public LoginController(AuthService authService) {
-        this.authService = authService;
-    }
+    private final AuthService authService;
 
     @GetMapping
     public String getLoginPage() {
-        // Return the name of the Thymeleaf template that will be used to render the login page
         return "login";
     }
 
@@ -35,13 +32,12 @@ public class LoginController {
         try {
             user = authService.login(username, password);
             request.getSession().setAttribute("user", user);
-            // Redirect to the home page
+
             return "redirect:/events";
-        } catch (RuntimeException ex) {
+        } catch (RuntimeException e) {
+            model.addAttribute("error", e.getMessage());
             model.addAttribute("hasError", true);
-            model.addAttribute("error", ex.getMessage());
             return "login";
         }
     }
 }
-

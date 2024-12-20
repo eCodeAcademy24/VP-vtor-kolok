@@ -300,24 +300,24 @@ Name: <event_name>, Description: <event_description>, Rating: <popularity_score>
 Најпрво е потребно да ги додадете зависностите за **Spring Security** кои се поставени во `pom.xml`.
 
 ```xml
-    <dependencies>
-        <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+<dependencies>
+   <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+   </dependency>
 
-		<dependency>
-			<groupId>org.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
-			<version>3.1.1.RELEASE</version>
-		</dependency>
+   <dependency>
+      <groupId>org.thymeleaf.extras</groupId>
+      <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+      <version>3.1.1.RELEASE</version>
+   </dependency>
 
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-        </dependency>
-    </dependencies>
+   <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-test</artifactId>
+      <scope>test</scope>
+   </dependency>
+</dependencies>
 ```
 
 2. Конфигурација на Spring Security
