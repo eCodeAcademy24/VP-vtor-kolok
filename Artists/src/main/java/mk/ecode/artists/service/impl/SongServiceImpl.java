@@ -27,9 +27,14 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public Song addArtistToSong(Long artistId, String trackId) {
+    public Song findById(Long songId) {
+        return songRepository.findById(songId).orElseThrow(RuntimeException::new);
+    }
+
+    @Override
+    public Song addArtistToSong(Long artistId, Long songId) {
         Artist artist = artistService.findById(artistId);
-        Song song = songRepository.findByTrackId(trackId);
+        Song song = findById(songId);
         return songRepository.addArtistToSong(artist, song);
     }
 
@@ -37,4 +42,40 @@ public class SongServiceImpl implements SongService {
     public Song findByTrackId(String trackId) {
         return songRepository.findByTrackId(trackId);
     }
+
+    @Override
+    public void create(String trackId, String title, String genre, int releaseYear, List<Long> artistsId) {
+        Song song = new Song();
+        List<Artist> artists = artistService.findAllById(artistsId);
+
+        song.setTrackId(trackId);
+        song.setTitle(title);
+        song.setGenre(genre);
+        song.setReleaseYear(releaseYear);
+        song.setArtists(artists);
+
+        songRepository.save(song);
+    }
+
+    @Override
+    public void update(Long id, String trackId, String title, String genre, int releaseYear, List<Long> artistsId) {
+        Song song = findById(id);
+        List<Artist> artists = artistService.findAllById(artistsId);
+
+        song.setTrackId(trackId);
+        song.setTitle(title);
+        song.setGenre(genre);
+        song.setReleaseYear(releaseYear);
+        song.setArtists(artists);
+
+        songRepository.save(song);
+    }
+
+    @Override
+    public void delete(Long songId) {
+        Song song = findById(songId);
+        songRepository.delete(song);
+    }
+
+
 }

@@ -25,4 +25,9 @@ public class ArtistServiceImpl implements ArtistService {
     public Artist findById(Long id) {
         return artistRepository.findById(id).orElseThrow();
     }
+
+    @Override
+    public List<Artist> findAllById(List<Long> artistsId) {
+        return artistRepository.findAllById(artistsId);
+    }
 }

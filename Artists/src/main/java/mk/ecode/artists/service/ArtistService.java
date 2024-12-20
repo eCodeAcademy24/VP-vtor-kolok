@@ -8,4 +8,6 @@ public interface ArtistService {
     List<Artist> listArtists();
 
     Artist findById(Long id);
+
+    List<Artist> findAllById(List<Long> artistsId);
 }
