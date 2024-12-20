@@ -29,7 +29,7 @@ public class SongDetailsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String trackId = req.getParameter("trackId");
 
-        Song song = songService.findByTrackId(trackId);
+        Song song = songService.findById(Long.valueOf(trackId));
 
         IWebExchange webExchange = JakartaServletWebApplication
                 .buildApplication(getServletContext())

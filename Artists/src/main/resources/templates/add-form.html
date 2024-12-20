@@ -19,7 +19,7 @@
 <body>
 
 <div class="container">
-    <form th:action="@{${song != null} ? '/songs/edit/' + ${song.id} : '/songs/add'}" method="post">
+    <form th:action="@{${song != null} ? '/songs/edit/' + ${song.id} : '/songs'}" method="post">
         <div class="form-group">
             <label for="trackId">Song Track Id</label>
             <input type="text"
@@ -58,18 +58,18 @@
                    placeholder="Release Year">
         </div>
         <div class="form-group">
-            <label for="artistsId">Artists</label>
-            <select id="artistsId" name="artistsId" class="form-control" multiple>
+            <label for="albumId">Albums</label>
+            <select id="albumId" name="albumId" class="form-control">
                 <option th:if="${song} == null"
-                        th:each="artist : ${artists}"
-                        th:value="${artist.getId()}"
-                        th:text="${artist.getFirstName() + ' ' + artist.getLastName()}">
+                        th:each="album : ${albums}"
+                        th:value="${album.getId()}"
+                        th:text="${album.getName()}">
                 </option>
                 <option th:if="${song != null}"
-                        th:each="artist : ${artists}"
-                        th:value="${artist.getId()}"
-                        th:text="${artist.getFirstName() + ' ' + artist.getLastName()}"
-                        th:selected="${song.artists != null && song.artists.contains(artist)}">
+                        th:each="album : ${albums}"
+                        th:value="${album.getId()}"
+                        th:text="${album.getName()}"
+                        th:selected="${song.album != null && song.album.getName().equals(album.getName())}">
                 </option>
             </select>
         </div>

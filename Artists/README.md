@@ -273,3 +273,103 @@ SongRepository и ArtistService).
 - дали можете да креирате нова песна, да едитирате песна и да избришете песна
 - дали работат функционалностите од претходната вежба со тоа што сите сервлети ќе ви бидат заменети со контролери.
 - дали успешно ги прикажувате сите детали за одредена песна.
+
+
+# Продолжение II
+
+## Опис на задачата
+
+### Инструкции за поставување на Spring Boot проект со H2 и PostgreSQL
+
+1. **Додадете ги потребните зависности во `pom.xml`:**
+
+   ```xml
+   <dependencies>
+       <!-- Spring Boot Data JPA -->
+       <dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-starter-data-jpa</artifactId>
+       </dependency>
+
+       <!-- H2 Database -->
+       <dependency>
+           <groupId>com.h2database</groupId>
+           <artifactId>h2</artifactId>
+           <scope>runtime</scope>
+       </dependency>
+
+       <!-- PostgreSQL Database -->
+       <dependency>
+           <groupId>org.postgresql</groupId>
+           <artifactId>postgresql</artifactId>
+           <scope>runtime</scope>
+       </dependency>
+   </dependencies>
+   ```
+
+2. **Инсталирајте PostgreSQL**, доколку сè уште не е инсталиран.
+
+3. **Креирајте два Spring профили:**
+   - `h2` (за in-memory база)
+   - `prod` (за PostgreSQL база).
+
+   Активниот профил нека биде тој кој користи PostgreSQL.
+
+4. **Доколку користите Docker:**
+   - Креирајте `docker-compose.yml` за конфигурација и работа со PostgreSQL.
+   - Доколку не, осигурајте се дека правилно ги конфигурирате `username` и `password` параметрите при инсталацијата на PostgreSQL.
+
+5. **Поврзете го IntelliJ IDEA со PostgreSQL базата:**
+   - Осигурајте се дека користите правилни податоци за `port`, `username`, `password` и името на базата.
+   - Името на базата нека биде `events`.
+
+6. **Во `application-prod.properties` осигурајте се дека:**
+
+   ```properties
+   spring.datasource.url=jdbc:postgresql://localhost:5432/music
+   spring.datasource.username=your_username
+   spring.datasource.password=your_password
+   ```
+
+7. **Изменете ја класата `Song` во пакетот `mk.ecode.artists.model`:**
+   - Анотирајте ја со `@Entity` за да стане JPA ентитет.
+   - Обезбедете уникатно `id` за секој настан, анотирајќи го со `@Id` и `@GeneratedValue`.
+
+8. **Изменете ја класата `Album`:**
+   - Анотирајте ја со `@Entity`.
+   - Обезбедете уникатно `id` со `@Id` и `@GeneratedValue`.
+   - Додадете ја релацијата со `Song` (`@OneToMany`).
+
+9. **Дефинирајте ги релациите меѓу ентитетите `Song` и `Album`:**
+   - Во `Song` користете `@ManyToOne` за релацијата со `Album`.
+   - Во `Album` додајте листа на `Song` ентитети и користете `@OneToMany(mappedBy = "album")`.
+
+10. **Креирајте табели во базата на податоци за `Song` и `Album` преку Spring Data JPA.**
+
+11. **Во пакетот `mk.ecode.artists.repository`:**
+- Креирајте `SongRepository` и `AlbumRepository` интерфејси кои ќе наследуваат од `JpaRepository`.
+- Додадете метод во `SongRepository` кој враќа настани според локација:
+
+  ```java
+   List<Song> findAllByAlbum_Id(Long albumId);
+  ```
+  
+12. **Во пакетот `mk.ecode.artists.service`:**
+- Изменете го `AlbumService` за да ги користи методите од `AlbumRepository`.
+- Изменете го `SongService` за да ги користи методите од `SongRepository`.
+
+13. **Изменете ја `SongController`:**
+- Додајте поддршка за додавање/ажурирање на песни, притоа перзистирајќи ги податоците во базата.
+- Осигурајте се дека при ажурирање, податоците се преземаат од базата и се прикажуваат во формата.
+- Изменете го методот `getSongsPage` за да ги презема настаните од базата со помош на `SongService`.
+
+14. **Осигурајте се дека `listSongs.html` и `add-form.html` работат со податоците од базата.**
+
+15. **При додавање или ажурирање на настан:**
+- Корисникот треба да може да избере локација од листата (пополнета од базата преку `AlbumService`).
+
+16. **Тестирајте ја функционалноста:**
+- Додавање нова песна.
+- Ажурирање на песна.
+- Бришење на песна.
+- Прикажување на песните според албум.

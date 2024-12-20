@@ -52,7 +52,7 @@ public class ArtistServlet extends HttpServlet {
         String trackId = req.getParameter("trackId");
         String artistId = req.getParameter("artistId");
 
-        songService.addArtistToSong(Long.valueOf(artistId), Long.valueOf(trackId));
+//        songService.addArtistToSong(Long.valueOf(artistId), Long.valueOf(trackId));
 
         resp.sendRedirect("/songDetails?trackId=" + trackId);
     }

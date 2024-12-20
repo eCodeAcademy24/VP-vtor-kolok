@@ -30,7 +30,7 @@ public class ArtistController {
 
     @PostMapping
     public String addArtistToSong(@RequestParam Long songId, @RequestParam Long artistId) {
-        songService.addArtistToSong(artistId, songId);
+//        songService.addArtistToSong(artistId, songId);
         return "redirect:/songs/" + songId;
     }
 }

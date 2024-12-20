@@ -1,6 +1,5 @@
 package mk.ecode.artists.service;
 
-import mk.ecode.artists.model.Artist;
 import mk.ecode.artists.model.Song;
 
 import java.util.List;
@@ -11,13 +10,11 @@ public interface SongService {
 
     List<Song> listSongs();
 
-    Song addArtistToSong(Long artistId, Long songId);
+    void create(String trackId, String title, String genre, int releaseYear, Long albumId);
 
-    Song findByTrackId(String trackId);
-
-    void create(String trackId, String title, String genre, int releaseYear, List<Long> artistsId);
-
-    void update(Long id, String trackId, String title, String genre, int releaseYear, List<Long> artistsId);
+    void update(Long id, String trackId, String title, String genre, int releaseYear, Long albumId);
 
     void delete(Long songId);
+
+    List<Song> findAllByAlbum_Id(Long albumId);
 }
