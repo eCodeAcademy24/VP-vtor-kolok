@@ -28,7 +28,6 @@ public interface TaskService {
      * This method is used to create a new entity, and save it in the database.
      *
      * @return The entity that is created. The id should be generated when the entity is created.
-     * @throws InvalidUserIdException when there is no category with the given id
      */
     Task create(String title, String description, TaskCategory category, List<Long> assignees, LocalDate dueDate);
 
@@ -38,7 +37,6 @@ public interface TaskService {
      * @param id          The id of the entity that is being edited
      * @return The entity that is updated.
      * @throws InvalidTaskIdException when there is no entity with the given id
-     * @throws InvalidUserIdException    when there is no category with the given id
      */
     Task update(Long id, String title, String description, TaskCategory category, List<Long> assignees);
 

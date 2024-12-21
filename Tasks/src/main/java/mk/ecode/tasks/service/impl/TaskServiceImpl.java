@@ -1,6 +1,5 @@
 package mk.ecode.tasks.service.impl;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import mk.ecode.tasks.model.Task;
 import mk.ecode.tasks.model.TaskCategory;
@@ -71,11 +70,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    @Transactional
     public Task markDone(Long id) {
         Task task = findById(id);
         task.setDone(true);
-
         return taskRepository.save(task);
     }
 

@@ -9,8 +9,7 @@ import java.util.List;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-
-    List<Task> findByAssigneesContainingAndDueDateBefore(User assignee, LocalDate localDate);
+    List<Task> findByAssigneesContainingAndDueDateBefore(User user, LocalDate localDate);
 
     List<Task> findByAssigneesContaining(User byId);
 
