@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Repository
 public class ArtistRepository {
@@ -19,11 +18,5 @@ public class ArtistRepository {
         return DataHolder.artists.stream()
                 .filter(artist -> artist.getId().equals(id))
                 .findFirst();
-    }
-
-    public List<Artist> findAllById(List<Long> artistsId) {
-        return DataHolder.artists.stream()
-                .filter(artist -> artistsId.contains(artist.getId()))
-                .collect(Collectors.toList());
     }
 }

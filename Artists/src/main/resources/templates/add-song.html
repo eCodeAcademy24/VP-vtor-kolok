@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
     <title>Add-Form</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -17,9 +17,8 @@
     <script src="https://kit.fontawesome.com/e59232f0a1.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
 <div class="container">
-    <form th:action="@{${song != null} ? '/songs/edit/' + ${song.id} : '/songs'}" method="post">
+    <form th:action="@{${song != null} ? '/songs/edit/' + ${song.getId()} : '/songs/add'}" th:method="post">
         <div class="form-group">
             <label for="trackId">Song Track Id</label>
             <input type="text"
@@ -28,53 +27,67 @@
                    name="trackId"
                    th:value="(${song} != null ? ${song?.getTrackId()} : '')"
                    required
-                   placeholder="Enter song track id">
+                   placeholder="Enter song track id"
+            >
         </div>
+
         <div class="form-group">
-            <label for="title">Title</label>
+            <label for="title">Song Title</label>
             <input type="text"
                    class="form-control"
                    id="title"
                    name="title"
                    th:value="(${song} != null ? ${song?.getTitle()} : '')"
-                   placeholder="Title">
+                   required
+                   placeholder="Enter song title"
+            >
         </div>
+
         <div class="form-group">
-            <label for="genre">Genre</label>
+            <label for="genre">Song Genre</label>
             <input type="text"
                    class="form-control"
                    id="genre"
                    name="genre"
                    th:value="(${song} != null ? ${song?.getGenre()} : '')"
-                   placeholder="Genre">
+                   required
+                   placeholder="Enter song genre"
+            >
         </div>
+
         <div class="form-group">
-            <label for="releaseYear">Release Year</label>
+            <label for="releaseYear">Song Release Year</label>
             <input type="text"
                    class="form-control"
                    id="releaseYear"
                    name="releaseYear"
                    th:value="(${song} != null ? ${song?.getReleaseYear()} : '')"
-                   placeholder="Release Year">
+                   required
+                   placeholder="Enter song release year"
+            >
         </div>
+
         <div class="form-group">
-            <label for="albumId">Albums</label>
+            <label for="albumId">Album</label>
             <select id="albumId" name="albumId" class="form-control">
+                <option value="">Select album</option>
                 <option th:if="${song} == null"
                         th:each="album : ${albums}"
                         th:value="${album.getId()}"
-                        th:text="${album.getName()}">
+                        th:text="${album.getName()}"
+                >
                 </option>
-                <option th:if="${song != null}"
+                <option th:if="${song} != null"
                         th:each="album : ${albums}"
                         th:value="${album.getId()}"
                         th:text="${album.getName()}"
-                        th:selected="${song.album != null && song.album.getName().equals(album.getName())}">
+                        th:selected="${album.getId() == song?.getAlbum()?.getId()}"
+                >
                 </option>
             </select>
         </div>
         <button id="submit" type="submit" class="btn btn-primary">Submit</button>
-        <a type="button" class="btn btn-primary" href="/songs">Back</a>
+        <a type="button" class="btn btn-secondary" href="/songs">Back to Songs</a>
     </form>
 </div>
 </body>

@@ -3,18 +3,6 @@
 <head>
     <meta charset="utf-8">
     <title>Songs Homepage - Welcome to My Music Store</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/e59232f0a1.js" crossorigin="anonymous"></script>
     <style type="text/css">
         body {
             width: 800px;
@@ -28,26 +16,29 @@
 </header>
 <main>
     <h2>Search by Album:</h2>
-    <form th:action="@{/songs}" method="get">
-        <label for="albumId">Album:</label>
+    <form th:action="@{/songs}" th:method="get">
+        <label for="albumId">Album Name:</label>
         <select name="albumId" id="albumId">
             <option value="">---Select album---</option>
             <th:block th:each="album : ${albums}">
-                <option th:value="${album.id}"
-                        th:text="${album.name}"
-                ></option>
+                <option th:value="${album.getId()}"
+                        th:text="${album.getName()}"
+                >
+                </option>
             </th:block>
         </select>
 
-        <button type="submit" class="btn btn-sm btn-info edit-product">Filter by Album</button>
+        <button type="submit">Filter by Album</button>
     </form>
 
     <h2>Choose a song:</h2>
-    <th:block>
-        <a th:href="@{'/songs/add-form'}"
-           class="btn btn-sm btn-info edit-product">
-            <i>Add a Song</i>
+    <th:block sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{'/songs/add-form'}">
+            <i>Add new Song</i>
         </a>
+    </th:block>
+    <th:block th:if="${error}">
+        <p>Bad Request</p>
     </th:block>
     <!-- Display radio buttons for each song,
             the value should be the trackId
@@ -59,19 +50,17 @@
                 Title: <span th:text="${song.getTitle()}"></span>
                 Genre: <span th:text="${song.getGenre()}"></span>
                 Release Year: <span th:text="${song.getReleaseYear()}"></span>
+                Album Name: <span th:text="${song.getAlbum().getName()}"></span>
             </label>
-            <th:block>
-                <a th:href="@{'/songs/delete/{id}' (id=${song.getId()})}"
-                   class="btn btn-sm btn-danger delete-product"
-                >
+
+            <th:block sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{'/songs/delete/{id}' (id=${song.getId()})}">
                     <i>Delete</i>
                 </a>
             </th:block>
 
-            <th:block>
-                <a th:href="@{'/songs/edit-form/{id}' (id=${song.getId()})}"
-                   class="btn btn-sm btn-info edit-product"
-                >
+            <th:block sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{'/songs/edit-form/{id}' (id=${song.getId()})}">
                     <i>Edit</i>
                 </a>
             </th:block>
@@ -80,5 +69,12 @@
         <input type='submit' value='Submit'>
     </form>
 </main>
+
+<div>
+    <ul>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+</div>
 </body>
 </html>

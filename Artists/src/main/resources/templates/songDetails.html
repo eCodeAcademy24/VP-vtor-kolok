@@ -17,8 +17,6 @@
     <ul th:each="artist : ${song.getArtists()}">
         <li th:text="${artist.getFirstName()} + ' ' + ${artist.getLastName()}"></li>
     </ul>
-
-    <a href="/songs">Go to Songs</a>
 </section>
 </body>
 </html>

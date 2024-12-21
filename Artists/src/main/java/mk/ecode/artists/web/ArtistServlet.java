@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import mk.ecode.artists.model.Artist;
+import mk.ecode.artists.model.Song;
 import mk.ecode.artists.service.ArtistService;
 import mk.ecode.artists.service.SongService;
 import org.thymeleaf.context.WebContext;
@@ -13,7 +15,7 @@ import org.thymeleaf.web.IWebExchange;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
-
+import java.util.List;
 
 @WebServlet(name = "artist", urlPatterns = "/artist")
 public class ArtistServlet extends HttpServlet {
@@ -52,7 +54,7 @@ public class ArtistServlet extends HttpServlet {
         String trackId = req.getParameter("trackId");
         String artistId = req.getParameter("artistId");
 
-//        songService.addArtistToSong(Long.valueOf(artistId), Long.valueOf(trackId));
+        songService.addArtistToSong(Long.valueOf(artistId), Long.valueOf(trackId));
 
         resp.sendRedirect("/songDetails?trackId=" + trackId);
     }

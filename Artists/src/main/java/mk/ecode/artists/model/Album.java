@@ -7,9 +7,9 @@ import lombok.Setter;
 
 import java.util.List;
 
+@Entity
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
 public class Album {
 
@@ -22,4 +22,11 @@ public class Album {
 
     @OneToMany(mappedBy = "album")
     private List<Song> songs;
+
+    public Album(String name, String genre, int releaseYear) {
+        this.id = (long) (Math.random() * 1000);
+        this.name = name;
+        this.genre = genre;
+        this.releaseYear = releaseYear;
+    }
 }

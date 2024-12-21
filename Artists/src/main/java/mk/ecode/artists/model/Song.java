@@ -5,12 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
 public class Song {
 
     @Id
@@ -26,4 +27,14 @@ public class Song {
 
     @ManyToOne
     private Album album;
+
+    public Song(String trackId, String title, String genre, int releaseYear, Album album) {
+        this.id = (long) (Math.random() * 1000);
+        this.trackId = trackId;
+        this.title = title;
+        this.genre = genre;
+        this.releaseYear = releaseYear;
+        artists = new ArrayList<>();
+        this.album = album;
+    }
 }

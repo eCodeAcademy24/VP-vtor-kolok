@@ -21,6 +21,6 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public Album findById(Long albumId) {
-        return albumJpaRepository.findById(albumId).orElseThrow(() -> new RuntimeException("Album not found"));
+        return albumJpaRepository.findById(albumId).orElseThrow(() -> new RuntimeException("Album not found!"));
     }
 }

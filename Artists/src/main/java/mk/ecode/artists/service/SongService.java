@@ -6,15 +6,17 @@ import java.util.List;
 
 public interface SongService {
 
-    Song findById(Long id);
+    Song findById(Long songId);
 
     List<Song> listSongs();
+
+    void addArtistToSong(Long artistId, Long songId);
 
     void create(String trackId, String title, String genre, int releaseYear, Long albumId);
 
     void update(Long id, String trackId, String title, String genre, int releaseYear, Long albumId);
 
-    void delete(Long songId);
+    void delete(Long id);
 
-    List<Song> findAllByAlbum_Id(Long albumId);
+    List<Song> findAllByAlbumId(Long albumId);
 }

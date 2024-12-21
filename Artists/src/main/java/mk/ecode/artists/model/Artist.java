@@ -5,10 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
+@Entity
 @Getter
 @Setter
-@Entity
+@NoArgsConstructor
 public class Artist {
 
     @Id
@@ -22,7 +22,6 @@ public class Artist {
     private Song song;
 
     public Artist(String firstName, String lastName, String bio) {
-        this.id = (long) (Math.random() * 1000);
         this.firstName = firstName;
         this.lastName = lastName;
         this.bio = bio;

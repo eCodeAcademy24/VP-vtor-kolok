@@ -42,7 +42,7 @@ public class SongRepository {
 
     public Optional<Song> findById(Long songId) {
         return DataHolder.songs.stream()
-                .filter(s -> s.getId().equals(songId))
+                .filter(song -> song.getId().equals(songId))
                 .findFirst();
     }
 
