@@ -35,12 +35,6 @@ import java.util.List;
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class SeleniumScenarioTest {
-
-    static {
-        SubmissionHelper.exam = "wp-kol2023-g1";
-        SubmissionHelper.index = "TODO";
-    }
-
     @Autowired
     TeamService teamService;
 
